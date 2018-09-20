@@ -1,5 +1,7 @@
 var httpServer = require('./servers/http'),
 resources = require('./resources/model');
+
+//Internal Plugins
 var dhtPlugin = require('./plugins/DHT11SensorPlugin');
 
 dhtPlugin.start({'simulate': true, 'frequency': 10000});
