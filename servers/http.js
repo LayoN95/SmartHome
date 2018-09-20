@@ -16,6 +16,6 @@ app.get('/pi', function(req, res){
     res.send('To jest webowe PI!')
 });
 
-app.use(converter);
+app.use(converter());
 
 module.exports = app;
