@@ -1,0 +1,42 @@
+{
+    "pi" : {
+        "name": "SmartHome",
+        "description": "Inteligentny dom",
+        "port": 8484,
+        "sensors": {
+            "temperature": {
+                "name": "Czujnik temperatury otoczenia",
+                "unit": "Celsius",
+                "value": 0,
+                "gpio": 12
+            },
+            "humidity": {
+                "name": "Czujnik wilgotnosci",
+                "description": "Czujnik wilgotnosci otoczenia",
+                "unit": "%",
+                "value": 0,
+                "gpio": 12
+            },
+            "pir": {
+                "name": "Pasywny czujnik podczerwieni",
+                "description": "Psywny czujnik podczerwnieni, wartość true oznacza wykrycie osoby",
+                "value": true,
+                "gpio": 17
+            }
+        },
+        "actuators": {
+            "leds": {
+                "1": {
+                    "name": "LED 1",
+                    "vale": false,
+                    "gpio": 4
+                },
+                "2": {
+                    "name": "LED 2",
+                    "vale": false,
+                    "gpio": 9
+                }
+            }
+        }
+    }
+}
