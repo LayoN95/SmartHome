@@ -4,8 +4,6 @@ var actuator, interval;
 var model = resources.pi.actuators.leds['1'];
 var pluginName = model.name;
 var localParams = {'simulate': false, 'frequency': 2000};
-var observe = require('observe');
-var observer = observe(pluginName);
 
 exports.start = function (params) {
   localParams = params;
@@ -27,10 +25,12 @@ exports.stop = function () {
   console.info('%s plugin stopped!', pluginName);
 };
 
-observer.on('change', function(change) {
-    console.info('Wtyczka wykryła zmiane %s...', pluginName);
-    switchOnOff(model.value);
-})
+function observe(what) {
+  Object.observe(what, function (changes) {
+    console.info('Change detected by plugin for %s...', pluginName);
+    switchOnOff(model.value); //#B
+  });
+};
 
 function switchOnOff(value) {
   if (!localParams.simulate) {
@@ -54,6 +54,17 @@ function simulate() {
     } else {
       model.value = true;
     }
+function simulate() {
+  interval = setInterval(function () {
+    // Switch value on a regular basis
+    if (model.value) {
+      model.value = false;
+    } else {
+      model.value = true;
+    }
+  }, localParams.frequency);
+  console.info('Simulated %s actuator started!', pluginName);
+};
   }, localParams.frequency);
   console.info('Simulated %s actuator started!', pluginName);
 };
