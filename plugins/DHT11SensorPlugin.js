@@ -77,7 +77,7 @@ function sendDB() {
    con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
-  var sql = "INSERT INTO DHT11 (id, temperature, humidity, date) VALUES ('', "model.temperature.value","model.humidity.value",'')";
+  var sql = ("INSERT INTO DHT11 (temperature, humidity) VALUES(?,?)" model.temperature.value, model.humidity.value);
   con.query(sql, function (err, result) {
     if (err) throw err;
     console.log("1 record inserted");
