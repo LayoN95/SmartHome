@@ -15,6 +15,10 @@ var model = resources.pi.sensors;
 var pluginName = 'Temperature & Humidity';
 var localParams = {'simulate': false, 'frequency': 1000};
 
+ con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!")};
+
 exports.start = function (params) {
   localParams = params;
   if (params.simulate) {
@@ -74,15 +78,13 @@ function showValue() {
 };
 
 function sendDB() {
-   con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
+  
   var sql = "INSERT INTO `DHT11` (id, temperature, humidity, date) VALUES ('','11','56','')";
   con.query(sql, function (err, result) {
     if (err) throw err;
     console.log("1 record inserted");
   });
-}); 
+ 
 };
 
 //#A Initialize the driver for DHT22 on GPIO 12 (as specified in the model)
