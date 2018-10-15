@@ -56,6 +56,7 @@ var ds18b20 = require('ds18b20');
 	setTimeout (function () {
 	connectHardware();
 	}, localParams.frequecny);
+
 }
 )};
 
