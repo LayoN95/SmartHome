@@ -33,15 +33,13 @@ function connectHardware() {
 var ds18b20 = require('ds18b20');
 
   
-
-
-
-setTimeout(function () {
 	
     ds18b20.temperature('28-00000a38e7b7', function(err, val) {
     model.value = val;
-	console.info("Current temperature is", val);
+    console.info("Current temperature is", val);
     
+	setTimeout (function () {
+	connectHardware();
 	}, localParams.frequecny);
 }
 )};
