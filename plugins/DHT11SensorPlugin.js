@@ -2,6 +2,14 @@
 var resources = require('./../resources/model'),
   utils = require('./../utils/utils.js');
 
+var mysql = require('mysql');
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "SmartHome,
+  password: "raspberry",
+  database: "SmartHome"
+});
+
 var interval, sensor;
 var model = resources.pi.sensors;
 var pluginName = 'Temperature & Humidity';
@@ -36,6 +44,7 @@ function connectHardware() {
       model.temperature.value = parseFloat(readout.temperature.toFixed(2));
       model.humidity.value = parseFloat(readout.humidity.toFixed(2)); //#C
       showValue();
+        sendDB();
 
       setTimeout(function () {
         sensor.read(); //#D
@@ -62,6 +71,18 @@ function simulate() {
 function showValue() {
   console.info('Temperature: %s C, humidity %s \%',
     model.temperature.value, model.humidity.value);
+};
+
+function sendDB() {
+   con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+  var sql = "INSERT INTO DHT11 (id, temperature, humidity, date) VALUES ('', "model.temperature.value","model.humidity.value",'')";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("1 record inserted");
+  });
+}); 
 };
 
 //#A Initialize the driver for DHT22 on GPIO 12 (as specified in the model)
