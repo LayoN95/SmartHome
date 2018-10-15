@@ -32,14 +32,16 @@ exports.stop = function () {
 function connectHardware() {
 var ds18b20 = require('ds18b20');
 
-    ds18b20.temperature('28-00000a38e7b7', function(err, val) {
-    	model.value = val;
-	console.info("Current temperature is", val);
+  
 
 
 
 setTimeout(function () {
-	sensor.read();
+	
+    ds18b20.temperature('28-00000a38e7b7', function(err, val) {
+    model.value = val;
+	console.info("Current temperature is", val);
+    
 	}, localParams.frequecny);
 }
 )};
