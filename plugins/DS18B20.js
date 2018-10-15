@@ -4,7 +4,6 @@ var interval, sensor;
 var model = resources.pi.sensors.ds18b20;
 var pluginName = resources.pi.sensors.ds18b20.name;
 var localParam = {'simulate': false, 'frequency': 2000};
-var ds18b20 = require('ds18b20');
 
 exports.start = function (params) {
 	localParams = params;
@@ -26,19 +25,33 @@ exports.stop = function () {
 
 
 
-ds18b20.sensors(function(err,ids)
-{
-});
+//ds18b20.sensors(function(err,ids)
+//{
+//});
 
 function connectHardware() {
+var ds18b20 = require('ds18b20');
+
 var sensor = {
-read: ds18b20.temperature('28-00000a38e7b7', function(err, val) {
+    initialize: function () {
+        
+    },
+read: function () {
+    ds18b20.temperature('28-00000a38e7b7', function(err, val) {
     	model.value = val;
 	console.info("Current temperature is", val);
 })
 
+
 setTimeout(function () {
 	sensor.read();
 	}, localParams.frequecny);
+}
 };
-
+     if (sensor.initialize()) {
+    console.info('Hardware %s sensor started!', pluginName);
+    sensor.read();
+  } else {
+    console.warn('Failed to initialize sensor!');
+  }
+};
