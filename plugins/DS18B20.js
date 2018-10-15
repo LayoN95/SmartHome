@@ -31,13 +31,14 @@ ds18b20.sensors(function(err,ids)
 });
 
 function connectHardware() {
+var sensor = {
 read: ds18b20.temperature('28-00000a38e7b7', function(err, val) {
     	model.value = val;
 	console.info("Current temperature is", val);
-});
+})
 
 setTimeout(function () {
 	sensor.read();
 	}, localParams.frequecny);
-}
 };
+
