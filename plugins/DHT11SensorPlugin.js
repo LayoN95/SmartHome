@@ -17,7 +17,8 @@ var localParams = {'simulate': false, 'frequency': 1000};
 
  con.connect(function(err) {
   if (err) throw err;
-  console.log("Connected!")};
+  console.log("Connected!")
+});
 
 exports.start = function (params) {
   localParams = params;
@@ -78,8 +79,11 @@ function showValue() {
 };
 
 function sendDB() {
-  
-  var sql = "INSERT INTO `DHT11` (id, temperature, humidity, date) VALUES ('','11','56','')";
+  var dateTime = require('node-datetime');
+  var dt = dateTime.create();
+  var date = dt.format('Y-m-d H:M:S');
+console.log(date.toString());
+  var sql = ("INSERT INTO `DHT11` (id, temperature, humidity, date) VALUES ('',"+model.temperature.value+","+model.humidity.value+",NOW())");
   con.query(sql, function (err, result) {
     if (err) throw err;
     console.log("1 record inserted");
