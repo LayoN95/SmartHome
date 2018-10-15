@@ -5,8 +5,10 @@ var httpServer = require('./servers/http'),
 //Internal Plugins
 var dhtPlugin = require('./plugins/DHT11SensorPlugin');
     //ledsPlugin = require('./plugins/ledsPlugin');
+var ds18b20Plugin = require('./plugins/DS18B20');
 
-dhtPlugin.start({'simulate': true, 'frequency': 10000});
+dhtPlugin.start({'simulate': false, 'frequency': 10000});
+//ds18b20Plugin.start({'simulate': false, 'frequency': 10000});
 //ledsPlugin.start({'simulate': false, 'frequency': 10000});
 
 var server = httpServer.listen(resources.pi.port, function(){

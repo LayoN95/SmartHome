@@ -22,7 +22,14 @@
                 "description": "Psywny czujnik podczerwnieni, wartość true oznacza wykrycie osoby",
                 "value": true,
                 "gpio": 17
-            }
+            },
+	    "ds18b20": {
+		"name": "Czujnik temperatury ds18b20",
+		"description": "Czujnik temperatury ds18b20",
+		"unit": "Celsius",
+		"value": 0,
+		"gpio": 4
+	    }	
         },
         "actuators": {
             "leds": {

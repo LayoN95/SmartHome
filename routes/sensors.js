@@ -22,4 +22,9 @@ router.route('/humidity').get(function (req, res, next){
     next();
 });
 
+router.route('/ds18b20').get(function (req, res, next){
+    req.result = resources.pi.sensors.ds18b20;
+    next();
+});
+
 module.exports = router;
