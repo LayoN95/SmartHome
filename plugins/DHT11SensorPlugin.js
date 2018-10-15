@@ -5,12 +5,12 @@ var resources = require('./../resources/model'),
 var mysql = require('mysql');
 var con = mysql.createConnection({
   host: "localhost",
-  user: "SmartHome,
+  user: "SmartHome",
   password: "raspberry",
   database: "SmartHome"
 });
 
-var interval, sensor;
+var interval, sensor, temp, humidity;
 var model = resources.pi.sensors;
 var pluginName = 'Temperature & Humidity';
 var localParams = {'simulate': false, 'frequency': 1000};
@@ -41,8 +41,8 @@ function connectHardware() {
     },
     read: function () {
       var readout = sensorDriver.read(); //#B
-      model.temperature.value = parseFloat(readout.temperature.toFixed(2));
-      model.humidity.value = parseFloat(readout.humidity.toFixed(2)); //#C
+     temp = (model.temperature.value = parseFloat(readout.temperature.toFixed(2)));
+     humidity = (model.humidity.value = parseFloat(readout.humidity.toFixed(2))); //#C
       showValue();
         sendDB();
 
@@ -77,7 +77,7 @@ function sendDB() {
    con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
-  var sql = ("INSERT INTO DHT11 (temperature, humidity) VALUES(?,?)" model.temperature.value, model.humidity.value);
+  var sql = "INSERT INTO `DHT11` (id, temperature, humidity, date) VALUES ('','11','56','')";
   con.query(sql, function (err, result) {
     if (err) throw err;
     console.log("1 record inserted");
